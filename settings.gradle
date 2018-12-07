@@ -1,0 +1,2 @@
+include ':app', ':easeui'
+project(':easeui').projectDir = new File('file/easemob-sdk-3.5.2/easeui/easeui')
