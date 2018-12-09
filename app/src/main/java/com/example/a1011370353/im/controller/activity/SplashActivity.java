@@ -36,13 +36,17 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 if(EMClient.getInstance().isLoggedInBefore()){//登入过
+
                     //跳转之前获取当前登入用户的信息
                     UserInfo account = Model.getInstance().getUserAccountDao().getAccountByHxID(EMClient.getInstance().getCurrentUser());
                     if (account ==null){
+
                         //跳转到登入页面
                         Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
                         startActivity(intent);
                     }else {
+                        // 登录成功后的方法
+                        Model.getInstance().loginSuccess(account);
                         //跳转到主界面
                         Intent intent = new Intent(SplashActivity.this,MainActivity.class);
                         startActivity(intent);

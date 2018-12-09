@@ -31,6 +31,7 @@ public class UserAccountDao {
         values.put(UserAccountTable.COL_NICK,user.getNick());
         values.put(UserAccountTable.COL_PHOTO,user.getPhoto());
         db.replace(UserAccountTable.TAB_NAME,null,values);  //此方法如果数据库有就直接替换，没有就添加
+        db.close();
 
     }
     //根据环信id获取所有用户信息
@@ -54,6 +55,7 @@ public class UserAccountDao {
         }
         //关闭资源
         cursor.close();
+        db.close();
 
         //返回数据
 

@@ -2,7 +2,9 @@ package com.example.a1011370353.im.model;
 
 import android.content.Context;
 
+import com.example.a1011370353.im.model.beam.UserInfo;
 import com.example.a1011370353.im.model.dao.UserAccountDao;
+import com.example.a1011370353.im.model.db.DBManager;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,6 +20,7 @@ public class Model {
     //创建对象
     private static Model model = new Model();
     private UserAccountDao userAccountDao;
+    private DBManager dbManager;
 
     //私有化构造
     private Model(){
@@ -38,8 +41,22 @@ public class Model {
         return executors;
     }
     //用户登入成功后的处理方法
-    public void loginSuccess() {
+    public void loginSuccess(UserInfo account) {
 
+        if (account==null){
+            return;
+        }
+        if (dbManager!= null) {
+            dbManager.close();
+        }
+        //创建数据库管理者
+        dbManager = new DBManager(mContxt, account.getName());
+
+
+    }
+    //获取数据库管理者
+    public DBManager getDbManager(){
+        return dbManager;
     }
     //获取用户账号数据库的操作类对象
     public UserAccountDao getUserAccountDao(){
